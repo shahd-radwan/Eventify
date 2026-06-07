@@ -28,15 +28,24 @@ import Providers from "./providers/page";
  }: Readonly<{
    children: React.ReactNode;
  }>) {
-  return (
-    <html lang="en">
-      <body>
-        <Providers>
+   return (
+     <html lang="en">
+       <body
+         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+       >
+
+       
+           <Navbar  />
+            <Providers>
           {children}
         </Providers>
-      </body>
-    </html>
-  );
+             <Footer />
+       
+            <Toaster />
+        
+       </body>
+     </html>
+   );
  }
 
 
