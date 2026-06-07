@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+// @ts-ignore: side-effect import of CSS without type declarations
 import "./globals.css";
 import { Toaster } from 'react-hot-toast';
 import { Footer, Navbar } from "@/components";
-import ProvidersContainer from "@/components/providersContainer/ProvidersContainer";
 
 
 const geistSans = Geist({
@@ -32,11 +32,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
 
-        <ProvidersContainer>
+       
           <Navbar  />
           {children}
             <Footer />
-        </ProvidersContainer>
+       
            <Toaster />
         
       </body>
