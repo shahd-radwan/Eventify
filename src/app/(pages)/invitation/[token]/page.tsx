@@ -121,16 +121,19 @@ export default function InvitationPage() {
       router.push(
         `/users/attendee/registration-success?token=${registration.registrationToken}`
       );
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log(
         "REGISTRATION ERROR:",
         error
       );
 
-      if (
-        error?.status === 409 ||
-        error?.response?.status === 409
-      ) {
+      const status =
+        typeof error === "object" && error !== null
+          ? (error as { status?: number; response?: { status?: number } }).status ??
+            (error as { status?: number; response?: { status?: number } }).response?.status
+          : undefined;
+
+      if (status === 409) {
         alert(
           "You are already registered for this event"
         );

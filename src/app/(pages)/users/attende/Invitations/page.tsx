@@ -19,7 +19,7 @@ export default function InvitationsPage() {
   const [events, setEvents] = useState<Record<number, Event>>({});
   const [registerLoadingId, setRegisterLoadingId] = useState<number | null>(null);
 
-  const token = (session as any)?.accessToken;
+  const token = (session as { accessToken?: string } | null)?.accessToken;
 
   useEffect(() => {
     if (status === "authenticated") {

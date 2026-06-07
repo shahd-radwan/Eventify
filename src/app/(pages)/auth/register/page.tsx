@@ -20,77 +20,9 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-// const handleRegister = async () => {
-//   setError("");
 
-//   if (!name || !email || !password || !confirmPassword) {
-//     setError("Please fill in all fields");
-//     return;
-//   }
 
-//   if (password !== confirmPassword) {
-//     setError("Passwords do not match");
-//     return;
-//   }
 
-//   const passwordRegex =
-//     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/;
-
-//   if (!passwordRegex.test(password)) {
-//     setError(
-//       "Password must contain uppercase, lowercase, number, and special character"
-//     );
-//     return;
-//   }
-
-//   const data: SignupData = {
-//     name,
-//     email,
-//     password,
-//     role: accountType,
-//   };
-
-//   try {
-//     setLoading(true);
-
-//     const result: any = await api.signup(data);
-
-//     console.log("REGISTER RESULT:", result);
-
-//     // ❌ الإيميل مستخدم
-//     if (result.message === "Email already in use") {
-//       setError("This email is already registered. Please login.");
-//       setLoading(false);
-//       return;
-//     }
-
-//     // ❌ خطأ من السيرفر
-//     if (result.status === 400 || result.error) {
-//       setError(result.message || "Registration failed");
-//       setLoading(false);
-//       return;
-//     }
-
-//     // ✅ نجاح التسجيل وإرسال OTP
-//     if (
-//       result.message?.toLowerCase().includes("otp")
-//     ) {
-//       sessionStorage.setItem("otpEmail", email);
-//       sessionStorage.setItem("accountType", accountType);
-
-//       router.push("/auth/verifyOtp");
-//       return;
-//     }
-
-//     setError("Registration failed");
-
-//   } catch (err) {
-//     console.error(err);
-//     setError("Something went wrong. Please try again.");
-//   } finally {
-//     setLoading(false);
-//   }
-// };
    
  const handleRegister = async () => {
   setError("");
@@ -124,7 +56,12 @@ export default function RegisterPage() {
   try {
     setLoading(true);
 
-    let result: any = await api.signup(data);
+    let result = await api.signup(data) as {
+      token?: string | null;
+      message?: string;
+      status?: number;
+      error?: boolean;
+    };
     console.log("SIGNUP RESULT:", result);
 
     // إذا الايميل مستخدم لكن بدون role أو token null → نتجاهل الحساب القديم ونعيد التسجيل

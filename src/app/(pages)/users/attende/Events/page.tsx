@@ -565,10 +565,10 @@ const [registeredEvents, setRegisteredEvents] = useState<number[]>([]);
     router.push(
       `/users/attende/registration-success?token=${response.registrationToken}`
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.log("REGISTRATION ERROR:", error);
 
-    if (error.message === "ALREADY_REGISTERED") {
+    if (error instanceof Error && error.message === "ALREADY_REGISTERED") {
       const registered = JSON.parse(
         localStorage.getItem("registeredEvents") || "[]"
       );

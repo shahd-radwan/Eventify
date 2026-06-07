@@ -35,7 +35,7 @@ export default function LoginPage() {
       // جلب session بعد تسجيل الدخول
       const session = await getSession();
 
-      const role = (session?.user as any)?.role;
+      const role = (session?.user as { role?: string })?.role;
 
       if (role === "ORGANIZER") {
         router.push("/users/organizer/Profile");
